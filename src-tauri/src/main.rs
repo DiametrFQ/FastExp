@@ -1,7 +1,7 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use fastexp::work_with_files::{find, read, save};
+use fastexp::work_with_files::{get_files_name, read, save};
 
 use std::env;
 // use std::Result::Err;
@@ -17,7 +17,8 @@ fn main() {
         .invoke_handler(tauri::generate_handler![
             greet,
             save::save_paths_from,
-            read::text_file
+            read::text_file,
+            get_files_name::get_files_from_dir,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

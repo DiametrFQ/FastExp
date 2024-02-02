@@ -1,22 +1,27 @@
 import { NgFor, NgIf } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
+import { FormsModule } from "@angular/forms";
 import { invoke } from "@tauri-apps/api/tauri";
+import { SaverComponent } from "./saver/saver.component";
+// import { Input } from "@angular/core";
 
 @Component({
   selector: "app-root",
   styleUrl: "./app.component.css",
-  imports: [NgIf, NgFor],
   templateUrl: "./app.component.html",
   standalone: true,
+  imports: [NgIf, NgFor, FormsModule, SaverComponent],
 })
 export class AppComponent implements OnInit {
   isLoad: boolean = true;
   data: [[string, string]] = [["a", "a"]];
   dataToShow: [[string, string]] = [["a", "a"]];
+  pathsMainDirectory: [string] = ["сдесь должен был быть paths"];
   currentPosition: number = 0;
+  mainDirectory = "/";
 
   ngOnInit() {
-    // this.getPaths();
+    this.getPathsFromMainDirectory();
   }
 
   async saveData() {
@@ -64,8 +69,19 @@ export class AppComponent implements OnInit {
     this.showNextPath();
   }
 
+  async getPathsFromMainDirectory() {
+    this.pathsMainDirectory = await invoke<[string]>("get_files_from_dir", {
+      targetDirectory: this.mainDirectory,
+    });
+  }
+
   trackByFn(index: number, item: string[]): string {
     // Возвращайте уникальный идентификатор для каждого элемента
     return `${item[0]}_${item[1]}`;
+  }
+
+  choisePaths(paths: string) {
+    this.mainDirectory += paths + "/";
+    this.getPathsFromMainDirectory();
   }
 }

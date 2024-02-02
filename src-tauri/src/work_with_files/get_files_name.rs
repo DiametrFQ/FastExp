@@ -1,3 +1,6 @@
+use super::save::{find_files_in_dir, DirIs};
+
+#[tauri::command]
 pub fn get_files_from_dir(target_directory: &str) -> Vec<String> {
     let DirIs::Open(files) = find_files_in_dir(target_directory) else {
         return vec!["This derictory is protected!".to_string()];

@@ -1,12 +1,12 @@
 use std::fs::{metadata, read_dir, File, ReadDir};
 use std::io::Write;
 
-enum DirIs {
+pub enum DirIs {
     Protect(),
     Open(ReadDir),
 }
 
-fn find_files_in_dir(target_directory: &str) -> DirIs {
+pub fn find_files_in_dir(target_directory: &str) -> DirIs {
     let Ok(files) = read_dir(target_directory) else {
         return DirIs::Protect();
     };

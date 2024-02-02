@@ -1,10 +1,14 @@
 <div>
-  <button (click)="getPaths()">Save Paths</button>
-  <button (click)="loadData()">Get Paths</button>
+  <input [(ngModel)]="mainDirectory" (change)="getPathsFromMainDirectory()" type="text">
+  <br>
+  <!-- <button (click)="getPaths()">Save Paths</button>
+  <button (click)="loadData()">Get Paths</button> -->
 
 
   <div *ngIf="isLoad; else loadedData">
-    <h2>Files Search</h2>
+    <div *ngFor="let paths of pathsMainDirectory;">
+      <app-saver (onChanged)="paths" (evem)="choisePaths($event)" [paths]="paths"> </app-saver>
+    </div>
   </div>
 
   <ng-template #loadedData>
