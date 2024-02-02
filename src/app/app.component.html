@@ -1,0 +1,17 @@
+<div>
+  <button (click)="getPaths()">Save Paths</button>
+  <button (click)="loadData()">Get Paths</button>
+
+
+  <div *ngIf="isLoad; else loadedData">
+    <h2>Files Search</h2>
+  </div>
+
+  <ng-template #loadedData>
+    
+    <div *ngFor="let files of dataToShow; trackBy: trackByFn">
+      {{ files.join("") }}
+    </div>
+
+  </ng-template>
+</div>
