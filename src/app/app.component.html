@@ -6,8 +6,11 @@
 
 
   <div *ngIf="isLoad; else loadedData">
-    <div *ngFor="let paths of pathsMainDirectory;">
-      <app-saver (onChanged)="paths" (evem)="choisePaths($event)" [paths]="paths"> </app-saver>
+    <div *ngFor="let paths of pathsMainDirectory[0];">
+      <app-dir (onChanged)="paths" (evem)="choisePaths($event)" [paths]="paths"> </app-dir>
+    </div>
+    <div *ngFor="let path of pathsMainDirectory[1];">
+      <app-file [path]="path"></app-file>
     </div>
   </div>
 

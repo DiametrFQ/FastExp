@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
-
+import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { SaverComponent } from "../saver.component";
 @Component({
-  selector: 'app-dir',
+  selector: "app-dir",
   standalone: true,
-  imports: [],
-  templateUrl: './dir.component.html',
-  styleUrl: './dir.component.css'
+  templateUrl: "./dir.component.html",
+  styleUrl: "./dir.component.css",
 })
-export class DirComponent {
-
+export class DirComponent extends SaverComponent {
+  @Output() evem = new EventEmitter<string>();
+  moveTo() {
+    this.evem.emit(this.paths);
+  }
 }

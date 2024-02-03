@@ -3,22 +3,30 @@ import { Component, OnInit } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { invoke } from "@tauri-apps/api/tauri";
 import { SaverComponent } from "./saver/saver.component";
-// import { Input } from "@angular/core";
+import { DirComponent } from "./saver/dir/dir.component";
+import { FileComponent } from "./saver/file/file.component";
 
 @Component({
   selector: "app-root",
   styleUrl: "./app.component.css",
   templateUrl: "./app.component.html",
   standalone: true,
-  imports: [NgIf, NgFor, FormsModule, SaverComponent],
+  imports: [
+    NgIf,
+    NgFor,
+    FormsModule,
+    SaverComponent,
+    DirComponent,
+    FileComponent,
+  ],
 })
 export class AppComponent implements OnInit {
   isLoad: boolean = true;
   data: [[string, string]] = [["a", "a"]];
   dataToShow: [[string, string]] = [["a", "a"]];
-  pathsMainDirectory: [string] = ["сдесь должен был быть paths"];
+  pathsMainDirectory: [string[], string[]] = [[], []];
   currentPosition: number = 0;
-  mainDirectory = "/";
+  mainDirectory = "C:/";
 
   ngOnInit() {
     this.getPathsFromMainDirectory();
@@ -70,9 +78,12 @@ export class AppComponent implements OnInit {
   }
 
   async getPathsFromMainDirectory() {
-    this.pathsMainDirectory = await invoke<[string]>("get_files_from_dir", {
-      targetDirectory: this.mainDirectory,
-    });
+    this.pathsMainDirectory = await invoke<[string[], string[]]>(
+      "get_files_from_dir",
+      {
+        targetDirectory: this.mainDirectory,
+      }
+    );
   }
 
   trackByFn(index: number, item: string[]): string {
