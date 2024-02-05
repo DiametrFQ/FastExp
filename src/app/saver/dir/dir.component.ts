@@ -7,8 +7,10 @@ import { SaverComponent } from "../saver.component";
   styleUrl: "./dir.component.css",
 })
 export class DirComponent extends SaverComponent {
-  @Output() evem = new EventEmitter<string>();
+  @Output()
+  evem = new EventEmitter<string>();
+
   moveTo() {
-    this.evem.emit(this.paths);
+    this.evem.emit(this.path);
   }
 }

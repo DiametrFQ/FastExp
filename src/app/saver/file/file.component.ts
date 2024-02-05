@@ -5,12 +5,5 @@ import { SaverComponent } from "../saver.component";
   selector: "app-file",
   standalone: true,
   templateUrl: "./file.component.html",
-  // styleUrl: "./file.component.css",
 })
-export class FileComponent extends SaverComponent {
-  @Input() path!: string;
-  @Output() evem = new EventEmitter<string>();
-  moveTo() {
-    this.evem.emit(this.path);
-  }
-}
+export class FileComponent extends SaverComponent {}

@@ -25,6 +25,9 @@ fn find(target_directory: &str, all_paths: &mut Vec<String>) {
         // if file_str.starts_with(".") {
         //     return;
         // }
+        // if(file_str.){
+
+        // }
 
         let output_line = format!("C:{}*{}\n", target_directory, file_str);
         all_paths.push(output_line);

@@ -1,24 +1,23 @@
 <div>
   <input [(ngModel)]="mainDirectory" (change)="getPathsFromMainDirectory()" type="text">
+  <input [(ngModel)]="seacrhWord" (change)="searchSaver()" type="text">
   <br>
-  <!-- <button (click)="getPaths()">Save Paths</button>
-  <button (click)="loadData()">Get Paths</button> -->
+  <button (click)="getPaths()">Save Paths</button>
+  <button (click)="loadData()">Get Paths</button>
+  <div>
+    @if (isLoad) {
+      @for (path of pathsMainDirectory[0]; track $index) {
+        <app-dir (onChanged)="path" (evem)="choisePaths($event)" [path]="path"> </app-dir>
+      }
 
-
-  <div *ngIf="isLoad; else loadedData">
-    <div *ngFor="let paths of pathsMainDirectory[0];">
-      <app-dir (onChanged)="paths" (evem)="choisePaths($event)" [paths]="paths"> </app-dir>
-    </div>
-    <div *ngFor="let path of pathsMainDirectory[1];">
-      <app-file [path]="path"></app-file>
-    </div>
+      @for (path of pathsMainDirectory[1]; track $index) {
+        <app-file [path]="path"> </app-file>
+      }
+    }
+    @else {
+        @for (files of dataToShow; track $index) {
+          <div>{{ files.join("") }}</div>
+        }
+    }
   </div>
-
-  <ng-template #loadedData>
-    
-    <div *ngFor="let files of dataToShow; trackBy: trackByFn">
-      {{ files.join("") }}
-    </div>
-
-  </ng-template>
 </div>
