@@ -24,9 +24,10 @@ export class AppComponent implements OnInit {
     this.getPathsFromMainDirectory();
   }
 
-  saveData() {
+  async saveData() {
     try {
-      invoke("save_paths_from", { path: "/" });
+      console.log("asdad");
+      invoke("save_paths_from", { directory: "/" });
 
       this.isLoad = false;
     } catch (error) {

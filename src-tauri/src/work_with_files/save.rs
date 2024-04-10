@@ -17,21 +17,17 @@ fn find_all_files(target_directory: &str, all_paths: &mut Vec<String>) {
     let DirIs::Open(files) = find_files_in_dir(target_directory) else {
         return;
     };
-    // match files {
-    //     Protect() -> ,
-    //     Open(ReadDir) -> ,
-    // }
 
     for file_entry in files {
         let Ok(entry) = file_entry else { return };
+
         let file_name = entry.file_name();
 
+        println!("{} ", file_name.to_str().unwrap());
+
         let Some(file_str) = file_name.to_str() else {
-            return;
+            panic!("asdasd");
         };
-        if file_str.starts_with(".") {
-            return;
-        }
 
         let output_line = format!("C:{}*{}\n", target_directory, file_str);
         all_paths.push(output_line);
@@ -50,6 +46,8 @@ fn find_all_files(target_directory: &str, all_paths: &mut Vec<String>) {
 #[tauri::command]
 pub fn save_paths_from(directory: &str) {
     let mut all_paths: Vec<String> = vec![];
+
+    println!("{}", directory);
 
     find_all_files(&directory, &mut all_paths);
 
